@@ -121,6 +121,12 @@ section{display:flex;flex-direction:column;gap:14px}
 .day-btn[aria-selected="true"]{background:var(--coral);box-shadow:3px 4px 0 var(--ink);transform:translateY(-3px)}
 .day-btn[aria-selected="true"] small{color:var(--ink)}
 
+.days{position:relative;padding-bottom:30px}
+.day-rail{position:absolute;bottom:6px;height:0;border-top:3px dashed var(--ink);pointer-events:none}
+.day-tram{position:absolute;bottom:4px;transform:translateX(-50%);transition:left .5s cubic-bezier(.3,1,.4,1);pointer-events:none}
+.day-tram svg{display:block}
+@media(prefers-reduced-motion:reduce){.day-tram{transition:none}}
+
 .day-panel{border:var(--line);border-radius:var(--r-lg);background:var(--white);padding:18px;display:flex;flex-direction:column;gap:16px}
 .day-panel.pop{animation:pop .5s cubic-bezier(.3,1.5,.5,1)}
 .day-head{display:flex;align-items:center;gap:14px}
@@ -634,12 +640,23 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
 
   /* ---------- 每日行程 ---------- */
   var tabs=document.getElementById('dayTabs'),panel=document.getElementById('dayPanel'),cur=0;
+  var TRAM_SVG='<svg viewBox="14 176 96 48" width="50" height="25" aria-hidden="true"><g stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path fill="none" d="M52 178l-8 10M60 178l8 10M44 178h24"/><rect x="16" y="188" width="92" height="28" rx="10" fill="#F2A497"/><path fill="none" stroke="#F6D27A" stroke-width="3" d="M16 206h92"/><g fill="#FFFFFF" stroke-width="2"><rect x="24" y="193" width="16" height="11" rx="3"/><rect x="45" y="193" width="16" height="11" rx="3"/><rect x="66" y="193" width="16" height="11" rx="3"/><rect x="87" y="193" width="14" height="11" rx="3"/></g><circle cx="36" cy="217" r="5" fill="#3E3A39"/><circle cx="88" cy="217" r="5" fill="#3E3A39"/></g></svg>';
   tabs.innerHTML=DAYS.map(function(d,i){
     return '<button class="day-btn" type="button" role="tab" id="tab'+i+'" aria-controls="dayPanel" data-i="'+i+'"><small>12 月</small><b>'+d.n+'</b><small>週'+d.w+'</small></button>';
-  }).join('');
+  }).join('')+'<div class="day-rail" id="dayRail" aria-hidden="true"></div><div class="day-tram" id="dayTram" aria-hidden="true">'+TRAM_SVG+'</div>';
+  var dayBtns=tabs.querySelectorAll('.day-btn'),dayRail=document.getElementById('dayRail'),dayTram=document.getElementById('dayTram');
+  function layoutTram(i){
+    if(!dayRail||!dayBtns.length)return;
+    var first=dayBtns[0],last=dayBtns[dayBtns.length-1],btn=dayBtns[i];
+    var railLeft=first.offsetLeft+first.offsetWidth/2;
+    var railRight=last.offsetLeft+last.offsetWidth/2;
+    dayRail.style.left=railLeft+'px';
+    dayRail.style.width=Math.max(0,railRight-railLeft)+'px';
+    dayTram.style.left=(btn.offsetLeft+btn.offsetWidth/2)+'px';
+  }
   function renderDay(i,animate){
     cur=i;var d=DAYS[i];
-    Array.prototype.forEach.call(tabs.children,function(b,k){
+    Array.prototype.forEach.call(dayBtns,function(b,k){
       b.setAttribute('aria-selected',k===i?'true':'false');b.tabIndex=k===i?0:-1;
     });
     panel.setAttribute('aria-labelledby','tab'+i);
@@ -651,9 +668,11 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
           s.tags.map(function(t){return '<span class="tag t-'+t[0]+'">'+esc(t[1])+'</span>'}).join('')+'</div><div class="tl-desc">'+esc(s.desc)+'</div>'+infoHtml+'</div></li>';
       }).join('')+'</ul>';
     if(animate){panel.classList.remove('pop');void panel.offsetWidth;panel.classList.add('pop')}
-    var b=tabs.children[i];
+    layoutTram(i);
+    var b=dayBtns[i];
     if(animate&&b.scrollIntoView){try{b.scrollIntoView({block:'nearest',inline:'center'})}catch(e){}}
   }
+  window.addEventListener('resize',function(){layoutTram(cur)});
   tabs.addEventListener('click',function(e){
     var b=e.target.closest('.day-btn');if(b)renderDay(+b.dataset.i,true);
   });
@@ -662,7 +681,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
     if(e.key==='ArrowRight')n=(cur+1)%DAYS.length;
     else if(e.key==='ArrowLeft')n=(cur+DAYS.length-1)%DAYS.length;
     else return;
-    e.preventDefault();renderDay(n,true);tabs.children[n].focus();
+    e.preventDefault();renderDay(n,true);dayBtns[n].focus();
   });
   var first=0,nowT=Date.now();
   if(nowT>=START&&nowT<END)first=Math.min(6,Math.floor((nowT-START)/864e5));
