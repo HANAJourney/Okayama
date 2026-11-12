@@ -21,7 +21,9 @@
   --nav-h:58px;
   color-scheme:light;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;min-width:0}
+body{overflow-x:hidden}
+p,small,dd,.note,.tl-desc,.budget-row .name,.check span{overflow-wrap:break-word;word-break:break-word}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 14px)}
 body{
   background:var(--paper);color:var(--ink);
@@ -76,8 +78,8 @@ section{display:flex;flex-direction:column;gap:14px}
 .hero svg{display:block;width:100%;max-width:460px;height:auto;background:var(--blue);border:var(--line);border-radius:var(--r-md)}
 .hero-body{padding:18px;display:flex;flex-direction:column;gap:12px}
 .eyebrow{font-size:14px;letter-spacing:.08em;color:var(--ink-soft)}
-.hero h1{font-size:clamp(30px,9vw,42px)}
-.hero h1 span{background:var(--yellow);border-radius:10px;padding:0 6px}
+.hero h1{font-size:clamp(24px,7.6vw,42px)}
+.hero h1 span{background:var(--yellow);border-radius:10px;padding:0 6px;white-space:nowrap;display:inline-block}
 .count{
   display:flex;align-items:center;gap:14px;flex-wrap:wrap;
   border:var(--line);border-radius:var(--r-md);background:var(--yellow);padding:12px 16px;
@@ -145,7 +147,7 @@ section{display:flex;flex-direction:column;gap:14px}
 .map-link .pin{flex:0 0 auto;color:var(--ink-soft)}
 .maplink-pill{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:var(--paper);border:var(--line);border-radius:999px;padding:3px 14px;font-size:14px;text-decoration:none;color:inherit;margin-top:6px}
 .must-tag{font-size:12px;background:var(--coral);border:2px solid var(--ink);border-radius:8px;padding:0 6px;line-height:1.6;transform:rotate(-4deg)}
-.tl-desc{font-size:14px;color:var(--ink-soft);line-height:1.6}
+.tl-desc{font-size:14px;color:var(--ink-soft);line-height:1.6;overflow-wrap:break-word;word-break:break-word}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{font-size:13px;border:2px solid var(--ink);border-radius:999px;padding:0 9px;line-height:1.7}
 .t-air{background:var(--coral)}.t-bus{background:var(--yellow)}.t-jr{background:var(--blue)}
@@ -400,8 +402,8 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       <dl class="stay-grid">
         <dt>入住</dt><dd>12/11（五）</dd>
         <dt>退房</dt><dd>12/17（四），共 6 晚</dd>
-        <dt>房型</dt><dd>雙床房帶浴室－禁菸 ×1 間，2 位成人，2 張單人床</dd>
-        <dt>餐食</dt><dd>12/11 不含餐食；12/12–12/17 每日 2 份早餐</dd>
+        <dt>房型</dt><dd>雙床房－禁菸 ×1 間，2 位成人，2 張單人床</dd>
+        <dt>餐食</dt><dd>12/12–12/17 每日 2 份早餐</dd>
         <dt>地址</dt><dd>岡山市北區下石井 1-1-17 アクロスキューブ岡山駅前 4F</dd>
         <dt>位置</dt><dd>岡山站前。機場巴士停在西口，走車站二樓自由通道到東口側。</dd>
         <dt>行李</dt><dd>最後一天退房後請櫃檯寄放，下午再回來拿。</dd>
@@ -440,7 +442,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
           <div class="amt">TWD 11,290</div>
         </div>
         <div class="budget-row">
-          <div class="name">飯店<small>實付 TWD 19,313（含稅服務費，已折扣）÷ 2</small></div>
+          <div class="name">飯店<small>實付 TWD 19,313 ÷ 2</small></div>
           <div class="amt">TWD 9,657</div>
         </div>
         <div class="budget-row">
@@ -525,7 +527,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       {t:'09:00',name:'兒島牛仔褲街',must:1,desc:'味野地區約 400 公尺的街道，集結 30–40 家日本頂級丹寧品牌（MOMOTARO JEANS、Japan Blue Jeans、BIG JOHN 等），牛仔褲均價 ¥10,000–25,000。吉祥物「G-Pans Da」人偶立牌和街頭牛仔褲裝飾很好拍。JR 兒島站步行約 15 分。',map:'児島ジーンズストリート',info:'https://www.okayama-japan.jp/tw/spot/10827',tags:[['jr','Marine Liner 25 分'],['walk','步行 15 分']]},
       {t:'11:30',name:'街頭藍色特色美食',desc:'牛仔褲街周邊小店的「藍色」限定美食：RIVETS 藍色牛仔霜淇淋（約 ¥450）、梔子花染藍肉包、藍莓彈珠汽水冰淇淋、限量牛仔布丁。',map:'児島ジーンズストリート',tags:[['walk','步行']]},
       {t:'13:00',name:'Betty Smith Jeans Museum DIY 體驗',must:1,desc:'搭 12:50 班 Jeans Bus 前往較順（兒島站 5 號乘車處，一圈約 35 分），或步行約 25–30 分。可親手打鉚釘、做專屬牛仔小物：零錢包約 ¥1,650、托特包約 ¥2,200、筆袋約 ¥1,100。電話 086-473-4460 確認體驗預約。',map:'ベティスミス ジーンズミュージアム',info:'https://shimoden.net/rosen/kikaku/jeans.html',tags:[['bus','Jeans Bus 12:50 班或步行']]},
-      {t:'約15:00',name:'兒島駅前 → 鷲羽山（轉乘）',desc:'搭「とこはい號」（Tokohai，每日行駛，不受牛仔褲巴士僅金土日祝的限制），路線經過鷲羽山第二展望台、下電飯店前等站，兒島巴士一日券可以直接刷乘不用加買票。時刻表：shimoden.net/rosen/rosen/timetable/tokohai.html。',map:'児島駅',info:'https://kankou-kurashiki.jp/experience2021/jeansbus_tc.pdf',tags:[['bus','とこはい號，每日行駛']]},
+      {t:'約15:00',name:'兒島駅前 → 鷲羽山（轉乘）',desc:'搭「とこはい號」（Tokohai，每日行駛，不受牛仔褲巴士僅金土日祝的限制），路線經過鷲羽山第二展望台、下電飯店前等站，兒島巴士一日券可以直接刷乘不用加買票。時刻表見下方參考資訊連結。',map:'児島駅',info:'https://kankou-kurashiki.jp/experience2021/jeansbus_tc.pdf',tags:[['bus','とこはい號，每日行駛']]},
       {t:'15:30',name:'鷲羽山第二展望台',must:1,desc:'眺望瀨戶大橋與瀨戶內海多島風景，日本夕陽百選之一，冬季空氣清澈時視野很好；展望台本身免費，地上還有寶可夢人孔蓋（路卡利歐）可以找。在這裡待到夕陽時分。',map:'鷲羽山第二展望台',tags:[['walk','步行']]},
       {t:'約16:50',name:'鷲羽山夕景',desc:'官方「鷲羽山夕景鑑賞巴士」（¥540、需網路預約、附導覽）只在金・土・祝前日行駛，週日不算在內，12/13 當天沒有這班導覽車，但展望台本身隨時能看夕陽，加上とこはい號每日都有班次接送，交通不受影響，只是少了導覽解說。',map:'鷲羽山第二展望台',info:'https://www.okayama-kanko.jp/business/spot/10431',tags:[['walk','步行']]},
       {t:'下午',name:'下津井町並み保存地區（視情況）',desc:'江戶時代海運港町老街，看完夕陽後下坡步行約 25 分，順路走到晚餐地點，不必再走回頭路。',map:'下津井町並み保存地区',tags:[['walk','步行約 25 分']]},
@@ -572,15 +574,12 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
 
   var LISTS={
     todo:{title:'訂位與確認',groups:[{items:[
-      ['岡山樂享周遊券 ×2（已購）','KKday 雙 11，優惠價 416→94 折 391 元，電子票存手機'],
       ['預訂機場接送包車（台灣返家）','目前 KKday 最低約 TWD 799，尚未下單'],
       ['確認周遊券最新可用設施與公休日'],
       ['確認機場巴士冬季時刻表','尤其 12/17 的 14:50 那班'],
-      ['已確認大原美術館週一公休，已把 Outlet 日從 12/14 改到 12/15（週二）避開，出發前再上官網確認一次'],
+      ['確認大原美術館 12/15 正常開館','已避開週一公休，出發前保險再看一次'],
       ['確認吉備津神社／吉備津彥神社授與所、御朱印開放時間','網路資料說法不一，建議出發前電話確認'],
-      ['兒島 Jeans Bus 只在金/土/日/祝日行駛','12/13（日）這天有開，出發前還是再確認一次'],
-      ['とこはい號／ふれあい號每日行駛，一日券通用','不用再擔心鷲羽山交通，官方巴士路線圖已存檔'],
-      ['鷲羽山夕景鑑賞巴士（含導覽）只在金/土/祝前日行駛','¥540、需預約，12/13 當天沒有這班，但交通不受影響'],
+      ['確認兒島 Jeans Bus／とこはい號冬季班次有無異動','出發前一週查一次即可'],
       ['確認飯店訂房、早餐時間與行李寄放'],
       ['航班線上報到、選位']
     ]}]},
