@@ -3,6 +3,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%23FFFCF6'/%3E%3Cg stroke='%233E3A39' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath fill='%23B9DAA5' d='M24 14q-12-2-14-10q12 0 14 10zM26 14q10-2 12-8q-10 0-12 8z'/%3E%3Cpath fill='%23F2A497' d='M24 44Q4 36 6 22q2-12 18-6q16-6 18 6q2 14-18 22z'/%3E%3Cpath fill='none' d='M24 17q-5 12 0 26'/%3E%3C/g%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 /* 版面：單欄繪本頁，固定頂端選單，每個段落是一張粗框大圓角的「貼紙卡」 */
 :root{
@@ -106,6 +107,16 @@ section{display:flex;flex-direction:column;gap:14px}
 .route svg{position:absolute;left:50%;top:-14px;width:28px;height:28px;margin-left:-14px}
 .flight-bot{padding:0 16px 14px;display:flex;flex-direction:column;gap:2px}
 .flight-time{font-size:22px;font-variant-numeric:tabular-nums}
+
+/* 當日路線地圖 */
+.route-map{display:flex;flex-direction:column;gap:10px;padding:14px}
+.route-map h3{font-size:19px}
+.route-canvas{height:340px;width:100%;border:var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--paper)}
+.route-cap{font-size:13px;color:var(--ink-soft);line-height:1.5}
+.num-icon{background:none;border:0}
+.num-pin{display:inline-block;min-width:26px;height:26px;padding:0 6px;border:3px solid var(--ink);border-radius:999px;background:var(--yellow);color:var(--ink);font:700 13px/20px var(--font);text-align:center;white-space:nowrap;transform:translate(-50%,-50%);box-shadow:0 2px 0 var(--ink)}
+.leaflet-popup-content{font:14px/1.5 var(--font);color:var(--ink);margin:10px 12px}
+.map-fallback{padding:12px}
 
 /* 日期切換 */
 .days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
@@ -390,6 +401,11 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       <span class="tag t-air">飛機</span><span class="tag t-bus">巴士</span><span class="tag t-jr">JR</span>
       <span class="tag t-tram">路面電車</span><span class="tag t-walk">步行</span>
     </div>
+    <div class="card route-map">
+      <h3>旅行範圍</h3>
+      <div id="routeMap" class="route-canvas" role="img" aria-label="旅行範圍地圖"></div>
+      <p class="route-cap">大致方位示意：機場、岡山站、吉備津、倉敷、兒島。個別景點位置請點行程中的 Google 地圖連結。</p>
+    </div>
     <div class="day-panel" id="dayPanel" role="tabpanel" tabindex="0"></div>
     <div class="card pass">
       <h3>樂享周遊券怎麼用</h3>
@@ -515,6 +531,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
   <footer>打勾紀錄只存在這台裝置的瀏覽器裡。班次、票價與營業時間出發前請再確認一次。</footer>
 </main>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 (function(){
   var S='stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"';
@@ -592,6 +609,26 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       {t:'17:55',name:'岡山桃太郎機場起飛',desc:'起飛前 2 小時到機場最安心。20:00 抵達台北桃園 T1。',map:'岡山桃太郎空港',tags:[['air','飛機']]}
     ]}
   ];
+
+  /* ---------- 旅行範圍地圖（Leaflet + OpenStreetMap，大致位置） ---------- */
+  var AREAS=[
+    ['機場',34.757,133.854],
+    ['岡山站',34.666,133.918],
+    ['吉備津',34.671,133.851],
+    ['倉敷',34.597,133.773],
+    ['兒島',34.470,133.802]
+  ];
+  var mapEl=document.getElementById('routeMap');
+  function initMap(){
+    if(typeof L==='undefined'){mapEl.innerHTML='<p class="note map-fallback">地圖載入失敗（需要網路連線）。</p>';return}
+    var m=L.map(mapEl,{scrollWheelZoom:false});
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(m);
+    var pts=AREAS.map(function(a){
+      L.marker([a[1],a[2]],{icon:L.divIcon({className:'num-icon',html:'<span class="num-pin">'+a[0]+'</span>',iconSize:null})}).addTo(m);
+      return [a[1],a[2]];
+    });
+    m.fitBounds(pts,{padding:[28,28]});
+  }
 
   var EXPENSES=[
     {d:'12/11',w:'五',items:[]},
@@ -694,6 +731,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
   });
   var first=0,nowT=Date.now();
   if(nowT>=START&&nowT<END)first=Math.min(6,Math.floor((nowT-START)/864e5));
+  initMap();
   renderDay(first,false);
 
   /* ---------- 清單 ---------- */
