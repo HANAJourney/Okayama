@@ -249,6 +249,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
     <a href="#weather">天氣</a>
     <a href="#checklist" data-tab="prebudget">行前費用</a>
     <a href="#checklist" data-tab="expenses">記帳</a>
+    <a href="#checklist" data-tab="transport">當地交通費</a>
     <a href="#todo" data-tab="todo-panel">待辦</a>
     <a href="#todo" data-tab="before">出發前</a>
     <a href="#todo" data-tab="pack">行李</a>
@@ -397,8 +398,8 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       <ol>
         <li>倉敷美觀地區漫步優惠券（12/12）</li>
         <li>兒島巴士一日券（12/13，兒島牛仔褲街與 Betty Smith；巴士只在週五～日與假日運行，12/13 是週日）</li>
-        <li>岡山城天守閣門票＋烏城咖啡聖代（12/16）</li>
-        <li>⚠️ 請先對照票面內容：有資料寫「楽しい岡山パス」是吉備津神社、岡山城、後樂園入場券的套組，若你的票面是這種，就不需要逐項兌換，吉備津神社（12/14）與後樂園（12/16）也可能包含在內。</li>
+        <li>岡山城天守閣門票＋烏城咖啡聖代（12/14）</li>
+        <li>⚠️ 請先對照票面內容：有資料寫「楽しい岡山パス」是吉備津神社、岡山城、後樂園入場券的套組，若你的票面是這種，就不需要逐項兌換，吉備津神社（12/16）與後樂園（12/14）也可能包含在內。</li>
       </ol>
       <a class="maplink-pill" href="https://travelcontentsapp.com/have-fun-pass/okayama/" target="_blank" rel="noopener"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path fill="currentColor" d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5h5V3H3v7h2V5zm0 9H3v7h7v-2H5v-5zm14 5h-5v2h7v-7h-2v5z"/></svg>官方介紹頁</a>
     </div>
@@ -445,10 +446,21 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
 
   <!-- 費用 -->
   <section id="checklist">
-    <h2 class="sec-title"><span class="dot" style="background:var(--coral)"></span>行前費用與記帳</h2>
+    <h2 class="sec-title"><span class="dot" style="background:var(--coral)"></span>費用</h2>
     <div class="budget-tabbar" role="tablist" aria-label="行前費用與記帳分類">
       <button class="btab" type="button" role="tab" id="tabPre" aria-controls="prebudget" aria-selected="true" data-target="prebudget">行前費用</button>
       <button class="btab" type="button" role="tab" id="tabExp" aria-controls="expenses" aria-selected="false" tabindex="-1" data-target="expenses">記帳</button>
+      <button class="btab" type="button" role="tab" id="tabTransport" aria-controls="transport" aria-selected="false" tabindex="-1" data-target="transport">當地交通費</button>
+    </div>
+    <div class="card" id="transport" role="tabpanel" aria-labelledby="tabTransport" hidden>
+      <div class="budget-list">
+        <div class="budget-row"><div class="name">12/12（六）岡山↔倉敷<small>JR 山陽本線，來回 ¥330 × 2</small></div><div class="amt">¥660</div></div>
+        <div class="budget-row"><div class="name">12/13（日）岡山↔兒島<small>JR 瀨戶大橋線（快速マリンライナー 自由席），來回 ¥510 × 2</small></div><div class="amt">¥1,020</div></div>
+        <div class="budget-row"><div class="name">12/15（二）岡山↔倉敷<small>JR 山陽本線，來回 ¥330 × 2</small></div><div class="amt">¥660</div></div>
+        <div class="budget-row"><div class="name">12/16（三）吉備線<small>岡山→吉備津 ¥210、吉備津→備前一宮 ¥150、備前一宮→岡山 ¥210</small></div><div class="amt">¥570</div></div>
+      </div>
+      <div class="budget-total"><span>當地交通費合計（JR）</span><b>¥2,910</b></div>
+      <p class="note budget-note">車資為乘換案內（駅探）查詢的 IC 票價參考；12/13 兒島為きっぷ票價。12/14 路面電車、岡電巴士與 12/13 兒島牛仔褲巴士另計，未列入合計。</p>
     </div>
     <div class="card" id="prebudget" role="tabpanel" aria-labelledby="tabPre">
       <div class="budget-list">
@@ -496,9 +508,9 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       <button class="btab" type="button" role="tab" id="tabBefore" aria-controls="before" aria-selected="false" tabindex="-1" data-target="before">出發前</button>
       <button class="btab" type="button" role="tab" id="tabPack" aria-controls="pack" aria-selected="false" tabindex="-1" data-target="pack">行李</button>
     </div>
-    <div id="todo-panel" role="tabpanel" aria-labelledby="tabTodo"><div class="card" data-list="todo"></div></div>
-    <div id="before" role="tabpanel" aria-labelledby="tabBefore" hidden><div class="card" data-list="before"></div></div>
-    <div id="pack" role="tabpanel" aria-labelledby="tabPack" hidden><div class="card" data-list="pack"></div><button class="clear" id="clearAll" type="button">清除所有打勾</button></div>
+    <div id="todo-panel" role="tabpanel" aria-labelledby="tabTodo"><div class="card" data-list="todo"></div><button class="clear" data-clear="todo" type="button">清除所有打勾</button></div>
+    <div id="before" role="tabpanel" aria-labelledby="tabBefore" hidden><div class="card" data-list="before"></div><button class="clear" data-clear="before" type="button">清除所有打勾</button></div>
+    <div id="pack" role="tabpanel" aria-labelledby="tabPack" hidden><div class="card" data-list="pack"></div><button class="clear" data-clear="pack" type="button">清除所有打勾</button></div>
   </section>
 
   <footer>打勾紀錄只存在這台裝置的瀏覽器裡。班次、票價與營業時間出發前請再確認一次。</footer>
@@ -539,20 +551,20 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
     ]},
     {d:'12/13',w:'日',n:13,title:'兒島牛仔文化',sub:'牛仔褲街與 Betty Smith DIY 體驗',icon:'jeans',bg:'--yellow',stops:[
       {t:'09:10',name:'搭 JR 到兒島站',must:1,desc:'從岡山站搭 JR 瀨戶大橋線到兒島，約 30 分，車資出發前用乘換案內確認。兒島站內外都有牛仔褲主題裝飾，可以先拍照。',map:'児島駅',tags:[['jr','瀨戶大橋線約 30 分']]},
-      {t:'10:00',name:'兒島牛仔褲巴士（ジーンズバス）',desc:'車內也是牛仔布風格。只有週五～日與假日運行，12/13 是週日有開。依舊資料約每小時 1 班（約 9:40–15:50），冬季時刻出發前請再確認。一日券大人 ¥620、小學生 ¥310，可在車上或 tabiwa 購買；周遊券第三項若是兒島巴士一日券，就在這天使用。',map:'児島駅前バスターミナル',info:'https://www.okayama-kanko.jp/spot/10327',tags:[['bus','巴士一日券 ¥620']]},
-      {t:'10:15',name:'兒島牛仔褲街（ジーンズストリート）',must:1,desc:'從旧野崎家住宅到野崎記念碑約 400 公尺，沿路都是日本國產牛仔褲品牌店，也有咖啡廳和雜貨店，建議預留約 2 小時。街上有牛仔藍的蒸包和冰淇淋可以試試。各店營業時間不同，部分店家週日以外會休息，進店前看一下門口公告。',map:'児島ジーンズストリート',info:'https://www.okayama-kanko.jp/spot/10326',tags:[['bus','巴士到「野﨑家旧宅」附近'],['walk','街上步行約 10 分']]},
+      {t:'10:30',name:'兒島牛仔褲巴士（ジーンズバス）',desc:'車內也是牛仔布風格。只有週五～日與假日運行，12/13 是週日有開。兒島站參考班次：09:40、10:30、11:30、12:50、14:50、15:50，10:30 班可銜接 09:10 搭的 JR（約 09:40 抵達），出發前再確認。一日券大人 ¥620、小學生 ¥310，可在車上或 tabiwa 購買；周遊券第三項若是兒島巴士一日券，就在這天使用。',map:'児島駅前バスターミナル',info:'https://www.okayama-kanko.jp/spot/10327',tags:[['bus','巴士一日券 ¥620']]},
+      {t:'10:50',name:'兒島牛仔褲街（ジーンズストリート）',must:1,desc:'從旧野崎家住宅到野崎記念碑約 400 公尺，沿路都是日本國產牛仔褲品牌店，也有咖啡廳和雜貨店，建議預留約 2 小時。街上有牛仔藍的蒸包和冰淇淋可以試試。各店營業時間不同，部分店家週日以外會休息，進店前看一下門口公告。',map:'児島ジーンズストリート',info:'https://www.okayama-kanko.jp/spot/10326',tags:[['bus','巴士到「野﨑家旧宅」附近'],['walk','街上步行約 10 分']]},
       {t:'12:30',name:'街上午餐',desc:'在牛仔褲街周邊自選用餐。冬季日落約 16:55，下午的 Betty Smith 行程先留好時間。',map:'児島ジーンズストリート',tags:[['walk','步行約 5 分']]},
       {t:'13:45',name:'Betty Smith 牛仔褲博物館＆村（Jeans Museum & Village）',must:1,desc:'日本國產牛仔褲發源地的牛仔褲主題設施。館內可免費參觀國產牛仔褲館與 outlet，有舊牛仔褲、縫紉機與石洗機器展示。營業時間約 9:30–17:00（12–2 月，各來源寫法略有差異，以官網為準），年末年始休息。DIY 牛仔褲或鉚釘配件體驗需先上網預約，方案與費用不同（製作標準直筒牛仔褲約 ¥11,000 起），請先看官網挑選時段，並確認 13:45 是否還有空位，預約後再決定來回時間。',map:'ベティスミス ジーンズミュージアム&ヴィレッジ',info:'https://betty.co.jp/village/make/',tags:[['bus','牛仔褲巴士或下電巴士王子が岳線'],['walk','巴士站步行約 5 分']]},
       {t:'15:00',name:'回兒島站',desc:'建議 15:00 前離開 Betty Smith，搭牛仔褲巴士回兒島站。末班車時間出發前確認（下電巴士兒島營業所 086-472-2811）。錯過就改搭下電巴士（一日券涵蓋王子が岳線到下之町）或計程車。',map:'児島駅',tags:[['bus','巴士回兒島站']]},
       {t:'15:30',name:'兒島站周邊咖啡休息',desc:'回到兒島站後在站周邊找咖啡廳休息，等 17:00 的 JR 回岡山。',map:'児島駅',tags:[['walk','步行約 5 分']]},
       {t:'17:00',name:'搭 JR 回岡山，站前晚餐',desc:'回岡山後在站前自由吃晚餐、休息。',map:'岡山駅',tags:[['jr','瀨戶大橋線約 30 分']]}
     ]},
-    {d:'12/14',w:'一',n:14,title:'桃太郎故鄉吉備路＋Sports Depo',sub:'吉備津神社群散策，下午到伊島町採買',icon:'shrine',bg:'--coral',stops:[
-      {t:'08:36',name:'JR 岡山站搭桃太郎線到吉備津站',desc:'搭 08:36 班到吉備津站，約 08:54 抵達（NAVITIME 時刻表，JR 2026 年 11 月號）。出站步行約 10 分鐘到吉備津神社。備用 09:29 班，約 09:46 抵達。出發前確認 12/14 班次。',map:'吉備津駅',info:'https://japantravel.navitime.com/zh-tw/area/jp/depArrTimeList/00000859/00001566/00000053?direction=down',tags:[['jr','08:36 班 735D'],['walk','出站步行 10 分']]},
-      {t:'09:30',name:'吉備津神社',must:1,desc:'國寶「吉備津造」本殿與約 360 公尺木造迴廊。12/14 週一正常開放。境內 5:00–18:00 免費；授與所約 9:00–16:00。',map:'吉備津神社',info:'https://www.okayama-kanko.jp/spot/10047',tags:[['walk','境內參拜']]},
-      {t:'11:00',name:'吉備津彥神社',must:1,desc:'從吉備津站搭 JR 桃太郎線 1 站到備前一宮站（約 3 分鐘，出站步行 3 分鐘），或沿吉備路步行前往。境內參拜約 6:00–18:00 免費；社務所時間未查到，建議電話 086-284-0031 詢問。',map:'吉備津彦神社',info:'https://www.okayama-kanko.jp/spot/10048',tags:[['jr','桃太郎線 1 站約 3 分'],['walk','出站步行 3 分']]},
-      {t:'12:20',name:'搭 12:39 班返回岡山站，午餐休息',desc:'12:20 前離開吉備津彥神社，到備前一宮站搭 12:39 班回岡山（JR 上り時刻，時刻表未標示平日土休日，出發前用乘換案內確認 12/14 班次）。備用班次 13:25。抵達岡山後站前用餐、稍作休息；Sports Depo 仍排 15:00。',map:'岡山駅',info:'https://timetable.jr-odekake.net/line-timetable/2404',tags:[['jr','JR 桃太郎線 12:39 班']]},
-      {t:'15:00',name:'Sports Depo 岡山伊島店',must:1,desc:'從岡山站前騎共享單車（ももちゃり）、搭公車或計程車前往北區伊島町，移動時間我沒有查到可靠資料，請用地圖確認。店面營業至 21:00，電話 086-251-2515。',map:'スポーツデポ岡山伊島店',tags:[['bus','共享單車／公車／計程車，時間待查']]},
+    {d:'12/14',w:'一',n:14,title:'後樂園、岡山城與 Sports Depo',sub:'名園與烏城天守，午後搭電車到伊島町採買',icon:'castle',bg:'--coral',stops:[
+      {t:'09:30',name:'岡山後樂園',must:1,desc:'日本三大名園之一，逛 1.5–2 小時，可在茶屋品嚐抹茶。門票不含在周遊券內，要另外買：大人約 ¥500（65 歲以上 ¥200，高中生以下免費，確切金額以現場為準）。這天岡山城門票已用周遊券兌換，現場只需單買後樂園全票，不需買共通券。',map:'岡山後楽園',info:'https://okayama-korakuen.jp/',tags:[['tram','東山線到「城下」5 分'],['walk','步行 10 分']]},
+      {t:'12:00',name:'岡山城天守閣',must:1,desc:'從後樂園跨越月見橋步行即達。用樂享周遊券兌換「岡山城天守閣門票＋烏城咖啡聖代」（兌換資格請對照票面確認）；若無周遊券則票價大人約 ¥500（小中學生免費）。',map:'岡山城',info:'https://okayama-castle.jp/',tags:[['walk','過月見橋，步行約 5 分']]},
+      {t:'13:30',name:'午餐（岡山城周邊自選）',desc:'在城下町或站前找一間午餐店，不必排太趕。',map:'岡山城',tags:[['walk','步行約 10 分']]},
+      {t:'14:30',name:'搭路面電車回岡山站',desc:'從城下站搭東山線回岡山站，車程約 5 分（依班次）。到站後從東口 7 番搭岡電前往 Sports Depo。',map:'岡山駅',tags:[['tram','東山線回岡山站']]},
+      {t:'15:00',name:'Sports Depo 岡山伊島店',must:1,desc:'去程：岡山站東口 7 番乘車，搭岡電「津高台團地・半田山ハイツ線」到「武道館口」下車，再步行到店（步行時間與班次請用乘換案內查）。回程：店前步行到「武道館口」，搭同線「岡山駅方面」回岡山站東口。店面營業至 21:00。',map:'スポーツデポ岡山伊島店',tags:[['bus','去回程：岡電津高台團地・半田山ハイツ線']]},
       {t:'18:30',name:'返回站前晚餐',desc:'逛完 Sports Depo 後返回岡山站前用晚餐。',map:'岡山駅',tags:[['walk','步行約 3 分']]},
       {t:'19:30',name:'西川緑道公園點燈',desc:'西川イルミ2026，免費入場，2026/11/6–2027/1/3 期間每日 17:00–22:00 點燈。從岡山站步行約 10 分，體力夠再去，不夠可跳過。',map:'西川緑道公園',info:'https://www.okayama-kanko.jp/event/12739',tags:[['walk','步行 10 分']]}
     ]},
@@ -564,12 +576,14 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       {t:'15:30',name:'Ario 倉敷',desc:'Outlet 隔壁，採買與喝咖啡休息。',map:'アリオ倉敷',tags:[['walk','步行 1 分']]},
       {t:'17:30',name:'搭 JR 回岡山',desc:'從倉敷站搭 JR 回岡山站，約 17 分，晚上自由安排。',map:'岡山駅',tags:[['jr','回岡山 17 分']]}
     ]},
-    {d:'12/16',w:'三',n:16,title:'經典名園＋烏城巡禮',sub:'樂享周遊券使用日：後樂園、岡山城',icon:'castle',bg:'--blue',stops:[
-      {t:'09:30',name:'岡山後樂園',must:1,desc:'日本三大名園之一，逛 1.5–2 小時，可在茶屋品嚐抹茶。門票不含在周遊券內，要另外買：大人約 ¥500（65 歲以上 ¥200，高中生以下免費，確切金額以現場為準）。與岡山城共通券 ¥720 比分開買便宜，兩個都要去的話建議買共通券。',map:'岡山後楽園',info:'https://okayama-korakuen.jp/',tags:[['tram','東山線到「城下」5 分'],['walk','步行 10 分']]},
-      {t:'12:00',name:'岡山城天守閣',must:1,desc:'從後樂園跨越月見橋步行即達。用樂享周遊券兌換「岡山城天守閣門票＋烏城咖啡聖代」（兌換資格請對照票面確認）；若無周遊券則票價大人約 ¥500（小中學生免費）。',map:'岡山城',info:'https://okayama-castle.jp/',tags:[['walk','過月見橋，步行約 5 分']]},
-      {t:'13:30',name:'午餐（岡山城周邊自選）',desc:'在城下町或站前找一間午餐店，不必排太趕。',map:'岡山城',tags:[['walk','步行約 10 分']]},
-      {t:'15:00',name:'YOURS 超市 岡山站店',must:1,desc:'回程前補貨：調味料、泡麵、零食。',map:'ユアーズ 岡山駅前店',tags:[['walk','步行約 3 分']]},
-      {t:'17:00',name:'岡山站前自由活動＆採買',desc:'在站前自由活動，逛 AEON MALL 岡山或高島屋採買，吃晚餐，為隔天回程預作準備。AEON MALL 的交通方式出發前用地圖確認。',map:'イオンモール岡山',tags:[['walk','步行約 3 分']]}
+    {d:'12/16',w:'三',n:16,title:'桃太郎故鄉吉備路',sub:'吉備津神社群散策，下午回站前補貨採買',icon:'shrine',bg:'--blue',stops:[
+      {t:'08:36',name:'JR 岡山站搭桃太郎線到吉備津站',desc:'搭 08:36 班到吉備津站，約 08:54 抵達（NAVITIME 時刻表，JR 2026 年 11 月號）。出站步行約 10 分鐘到吉備津神社。備用 09:29 班，約 09:46 抵達。出發前確認 12/16 班次。',map:'吉備津駅',info:'https://japantravel.navitime.com/zh-tw/area/jp/depArrTimeList/00000859/00001566/00000053?direction=down',tags:[['jr','08:36 班 735D'],['walk','出站步行 10 分']]},
+      {t:'09:30',name:'吉備津神社',must:1,desc:'國寶「吉備津造」本殿與約 360 公尺木造迴廊。12/16 週三正常開放。境內 5:00–18:00 免費；授與所約 9:00–16:00。',map:'吉備津神社',info:'https://www.okayama-kanko.jp/spot/10047',tags:[['walk','境內參拜']]},
+      {t:'11:00',name:'吉備津彥神社',must:1,desc:'從吉備津站搭 JR 桃太郎線 1 站到備前一宮站（約 3 分鐘，出站步行 3 分鐘），或沿吉備路步行前往。境內參拜約 6:00–18:00 免費；社務所時間未查到，建議電話 086-284-0031 詢問。',map:'吉備津彦神社',info:'https://www.okayama-kanko.jp/spot/10048',tags:[['jr','桃太郎線 1 站約 3 分'],['walk','出站步行 3 分']]},
+      {t:'12:20',name:'吉備津彥神社附近午餐',desc:'從吉備津彥神社離開後，在附近用午餐。',map:'吉備津彦神社',tags:[['walk','神社附近']]},
+      {t:'13:25',name:'備前一宮站搭 JR 桃太郎線到岡山站',desc:'在備前一宮站搭 13:25 班回岡山（JR 上り時刻，時刻表未標示平日土休日，出發前用乘換案內確認 12/16 班次）。到岡山站後前往站前補貨採買。',map:'岡山駅',info:'https://timetable.jr-odekake.net/line-timetable/2404',tags:[['jr','JR 桃太郎線 13:25 班']]},
+      {t:'14:30',name:'YOURS 超市 岡山站店',must:1,desc:'回程前補貨：調味料、泡麵、零食。',map:'ユアーズ 岡山駅前店',tags:[['walk','步行約 3 分']]},
+      {t:'17:00',name:'岡山站前自由活動＆採買',desc:'在站前自由活動，逛 AEON MALL 岡山或高島屋採買，吃晚餐，為隔天回程預作準備。從岡山站步行約 5 分鐘，回飯店也很近。',map:'イオンモール岡山',tags:[['walk','步行約 5 分']]}
     ]},
     {d:'12/17',w:'四',n:17,title:'回家',sub:'早上不排遠的，留時間買伴手禮',icon:'peach',bg:'--green',stops:[
       {t:'10:00',name:'退房・寄放行李',desc:'行李先放飯店櫃檯。',map:'Hotel Trend Okayama Ekimae',tags:[['walk','約 3 分']]},
@@ -600,7 +614,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
       ['預約 Betty Smith 牛仔褲 DIY 體驗（12/13）','官網預約，先看可選時段、方案與費用；博物館約 9:30–17:00'],
       ['確認樂享周遊券的兒島巴士一日券','12/13 是週日有運行，出發前查冬季牛仔褲巴士時刻'],
       ['對照樂享周遊券票面內容','確認是否含吉備津神社、後樂園、岡山城，以及有效期限'],
-      ['確認 12/14 吉備線（桃太郎線）來回班次','班次較疏，回程 12:30 前後要先查時刻表'],
+      ['確認 12/16 吉備線（桃太郎線）來回班次','班次較疏，回程 13:25 前後要先查時刻表'],
       ['確認 12/14 Sports Depo 交通方式','伊島町離站較遠，用地圖查共享單車或公車時間'],
       ['確認飯店訂房、早餐時間與行李寄放'],
       ['航班線上報到、選位']
@@ -776,20 +790,23 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft)}
   renderExpenses();
 
   /* 清除：按兩次才執行 */
-  var clr=document.getElementById('clearAll'),armed=null;
-  clr.addEventListener('click',function(){
-    if(!armed){
-      clr.textContent='再按一次確定清除';
-      armed=setTimeout(function(){armed=null;clr.textContent='清除所有打勾'},3000);
-      return;
-    }
-    clearTimeout(armed);armed=null;store={};save();
-    Array.prototype.forEach.call(listEls,function(el){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-clear]'),function(clr){
+    var list=clr.dataset.clear,label=clr.textContent,armed=null;
+    clr.addEventListener('click',function(){
+      if(!armed){
+        clr.textContent='再按一次確定清除';
+        armed=setTimeout(function(){armed=null;clr.textContent=label},3000);
+        return;
+      }
+      clearTimeout(armed);armed=null;
+      Object.keys(store).forEach(function(k){if(k.indexOf(list+'-')===0)delete store[k]});
+      save();
+      var el=document.querySelector('[data-list="'+list+'"]');
       Array.prototype.forEach.call(el.querySelectorAll('input[type=checkbox]'),function(b){b.checked=false});
       update(el);
+      clr.textContent='已清除';
+      setTimeout(function(){clr.textContent=label},1500);
     });
-    clr.textContent='已清除';
-    setTimeout(function(){clr.textContent='清除所有打勾'},1500);
   });
 })();
 </script>
